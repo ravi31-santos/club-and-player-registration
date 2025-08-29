@@ -16,17 +16,26 @@ public class PlayerController {
         this.playerRepository = playerRepository;
     }
 
+
     @GetMapping
     public List<Player> getAll(){
         return playerRepository.findAll();
     }
+
 
     @GetMapping("/{id}")
     public Player getById(@PathVariable Long id){
         return playerRepository.findById(id).orElseThrow();
     }
 
-    @PostMapping("/{id}")
+
+    @PostMapping
+    public Player create(@RequestBody Player player){
+        return playerRepository.save(player);
+    }
+
+
+    @PutMapping("/{id}")
     public Player update(@PathVariable Long id, @RequestBody Player player){
         Player existing = playerRepository.findById(id).orElseThrow();
         existing.setNamePlayer(player.getNamePlayer());
@@ -37,10 +46,9 @@ public class PlayerController {
         return playerRepository.save(existing);
     }
 
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
-         playerRepository.deleteById(id);
+        playerRepository.deleteById(id);
     }
-
-
 }

@@ -25,7 +25,6 @@ Antes de rodar o projeto, você precisa ter:
 
 Siga o Script abaixo do MySQL ->
 
-    --database.sql
  ```sql 
  create database Player;
  use Player;

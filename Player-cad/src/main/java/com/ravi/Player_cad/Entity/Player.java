@@ -22,7 +22,7 @@ public class Player {
     private int overralPlayer;
 
     @ManyToOne
-    @Column (name = "idClub")
+    @JoinColumn (name = "idClub")
     private Club club;
 
 }
