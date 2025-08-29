@@ -2,51 +2,51 @@ package com.ravi.Player_cad.Controller;
 
 import com.ravi.Player_cad.Entity.Club;
 import com.ravi.Player_cad.Repository.ClubRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/clubs")
 public class ClubController {
 
-    private final ClubRepository clubRepository;
+    @Autowired
+    private ClubRepository clubRepository;
 
-    public ClubController(ClubRepository clubRepository){
-        this.clubRepository = clubRepository;
+
+    @GetMapping("/new")
+    public String newClub(Model model) {
+        model.addAttribute("club", new Club());
+        return "club";
     }
 
 
-    @GetMapping
-    public List<Club> getAll() {
-        return clubRepository.findAll();
+    @GetMapping("/edit/{id}")
+    public String editClub(@PathVariable Long id, Model model) {
+        Club club = clubRepository.findById(id).orElseThrow();
+        model.addAttribute("club", club);
+        return "club";
     }
 
 
-    @GetMapping("/{id}")
-    public Club getById(@PathVariable Long id) {
-        return clubRepository.findById(id).orElseThrow();
+    @PostMapping("/save")
+    public String saveClub(@ModelAttribute Club club) {
+        clubRepository.save(club);
+        return "redirect:/clubs/list";
     }
 
 
-    @PostMapping
-    public Club create(@RequestBody Club club) {
-        return clubRepository.save(club);
+    @GetMapping("/list")
+    public String listClubs(Model model) {
+        model.addAttribute("clubs", clubRepository.findAll());
+        return "clubList"; // clubList.html
     }
 
 
-    @PutMapping("/{id}")
-    public Club update(@PathVariable Long id, @RequestBody Club club) {
-        Club existing = clubRepository.findById(id).orElseThrow();
-        existing.setNameClub(club.getNameClub());
-        existing.setDescriptionClub(club.getDescriptionClub());
-        existing.setChampionshipClub(club.getChampionshipClub());
-        return clubRepository.save(existing);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String deleteClub(@PathVariable Long id) {
         clubRepository.deleteById(id);
+        return "redirect:/clubs/list";
     }
 }
