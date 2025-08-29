@@ -16,7 +16,9 @@ Antes de rodar o projeto, você precisa ter:
 
 ### Configuração do Banco de Dados
 
-1. Abra o MySQL Workbench ou outro cliente MySQL.   [![My Skills](https://skillicons.dev/icons?i=mysql,postgres,mongodb)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=mysql,postgres,mongodb)](https://skillicons.dev)
+
+1. Abra o MySQL Workbench ou outro cliente MySQL.  
 2. Crie o banco de dados e as tabelas rodando o script `database.sql` fornecido.
 3. Configure o `application.properties` do Spring Boot com seu usuário, senha e nome do banco.
 
@@ -24,25 +26,26 @@ Antes de rodar o projeto, você precisa ter:
 Siga o Script abaixo do MySQL ->
 
     --database.sql
-create database Player;
-use Player;
+ ```sql 
+ create database Player;
+ use Player;
 
-create table Cad_Player(
-idPlayer int auto_increment primary key,
-name_player varchar(50),
-age_player tinyint unsigned,
-skill_player varchar(100),
-overral_player int(3),
-idClub int, foreign key(idClub) references Cad_Club(idClub)
-);
+ create table Cad_Player(
+ idPlayer int auto_increment primary key,
+ name_player varchar(50),
+ age_player tinyint unsigned,
+ skill_player varchar(100),
+ overral_player int(3),
+ idClub int, foreign key(idClub) references Cad_Club(idClub)
+ );
 
-create table Cad_Club(
-idClub int auto_increment primary key,
-name_club varchar(100),
-description_club varchar(200),
-championship_club varchar(200)
-);
-
+ create table Cad_Club(
+ idClub int auto_increment primary key,
+ name_club varchar(100),
+ description_club varchar(200),
+ championship_club varchar(200)
+ );
+```
 ---
 
 1. Clone este repositório:
