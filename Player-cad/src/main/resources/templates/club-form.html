@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Clube</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 th:text="${club.idClub != null ? 'Editar Clube' : 'Novo Clube'}"></h1>
+
+<form th:action="@{/clubs/save}" th:object="${club}" method="post">
+  <input type="hidden" th:field="*{idClub}" />
+
+  <label>Nome:</label>
+  <input type="text" th:field="*{nameClub}" /><br><br>
+
+  <label>Descrição:</label>
+  <input type="text" th:field="*{descriptionClub}" /><br><br>
+
+  <label>Campeonato:</label>
+  <input type="text" th:field="*{championshipClub}" /><br><br>
+
+  <button type="submit">Salvar</button>
+</form>
+</body>
+</html>
